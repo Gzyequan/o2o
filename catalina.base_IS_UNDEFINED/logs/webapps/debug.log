@@ -1,0 +1,18 @@
+2018-04-02 20:10:52.550[main] DEBUG com.yequan.o2o.dao.ShopDao.insertShop-==>  Preparing: INSERT INTO tb_shop(owner_id,area_id,shop_category_id,shop_name,shop_desc,shop_addr,phone,shop_img,priority,create_time, last_edit_time,enable_status,advice) VALUES (?,?,?,?,?,?,?, ?,?,?,?,?,?) 
+2018-04-02 20:10:52.578[main] DEBUG com.yequan.o2o.dao.ShopDao.insertShop-==> Parameters: 1(Long), 2(Integer), 10(Long), 测试店铺名(String), test(String), test(String), test(String), test(String), 1(Integer), 2018-04-02 20:10:52.304(Timestamp), 2018-04-02 20:10:52.304(Timestamp), 1(Integer), 审核中(String)
+2018-04-02 20:10:52.582[main] DEBUG com.yequan.o2o.dao.ShopDao.insertShop-<==    Updates: 1
+2018-04-02 20:35:14.073[main] DEBUG com.yequan.o2o.dao.ShopDao.insertShop-==>  Preparing: INSERT INTO tb_shop(owner_id,area_id,shop_category_id,shop_name,shop_desc,shop_addr,phone,shop_img,priority,create_time, last_edit_time,enable_status,advice) VALUES (?,?,?,?,?,?,?, ?,?,?,?,?,?) 
+2018-04-02 20:35:14.100[main] DEBUG com.yequan.o2o.dao.ShopDao.insertShop-==> Parameters: 1(Long), 2(Integer), 10(Long), 测试店铺名(String), test(String), test(String), test(String), test(String), 1(Integer), 2018-04-02 20:35:13.851(Timestamp), 2018-04-02 20:35:13.851(Timestamp), 1(Integer), 审核中(String)
+2018-04-02 20:35:14.105[main] DEBUG com.yequan.o2o.dao.ShopDao.insertShop-<==    Updates: 1
+2018-04-02 20:35:55.412[main] DEBUG com.yequan.o2o.dao.ShopDao.insertShop-==>  Preparing: INSERT INTO tb_shop(owner_id,area_id,shop_category_id,shop_name,shop_desc,shop_addr,phone,shop_img,priority,create_time, last_edit_time,enable_status,advice) VALUES (?,?,?,?,?,?,?, ?,?,?,?,?,?) 
+2018-04-02 20:35:55.445[main] DEBUG com.yequan.o2o.dao.ShopDao.insertShop-==> Parameters: 1(Long), 2(Integer), 10(Long), 测试店铺名(String), test(String), test(String), test(String), test(String), 1(Integer), 2018-04-02 20:35:55.179(Timestamp), 2018-04-02 20:35:55.179(Timestamp), 1(Integer), 审核中(String)
+2018-04-02 20:35:55.452[main] DEBUG com.yequan.o2o.dao.ShopDao.insertShop-<==    Updates: 1
+2018-04-02 20:37:45.393[main] DEBUG com.yequan.o2o.dao.ShopDao.insertShop-==>  Preparing: INSERT INTO tb_shop(owner_id,area_id,shop_category_id,shop_name,shop_desc,shop_addr,phone,shop_img,priority,create_time, last_edit_time,enable_status,advice) VALUES (?,?,?,?,?,?,?, ?,?,?,?,?,?) 
+2018-04-02 20:37:45.422[main] DEBUG com.yequan.o2o.dao.ShopDao.insertShop-==> Parameters: 1(Long), 2(Integer), 10(Long), 测试店铺名(String), test(String), test(String), test(String), test(String), 1(Integer), 2018-04-02 20:37:45.075(Timestamp), 2018-04-02 20:37:45.075(Timestamp), 1(Integer), 审核中(String)
+2018-04-02 20:37:45.429[main] DEBUG com.yequan.o2o.dao.ShopDao.insertShop-<==    Updates: 1
+2018-04-02 21:10:48.403[main] DEBUG com.yequan.o2o.dao.ShopDao.updateShop-==>  Preparing: UPDATE tb_shop SET shop_name=?, shop_desc=?, shop_addr=?, phone=?, shop_img=?, last_edit_time=? WHERE shop_id=? 
+2018-04-02 21:10:48.423[main] DEBUG com.yequan.o2o.dao.ShopDao.updateShop-==> Parameters: 更新店铺名称(String), 新描述(String), 审核通过(String), 新电话(String), img(String), 2018-04-02 21:10:48.146(Timestamp), 39(Long)
+2018-04-02 21:10:48.428[main] DEBUG com.yequan.o2o.dao.ShopDao.updateShop-<==    Updates: 1
+2018-04-02 21:12:08.012[main] DEBUG com.yequan.o2o.dao.ShopDao.updateShop-==>  Preparing: UPDATE tb_shop SET shop_name=?, shop_desc=?, shop_addr=?, phone=?, shop_img=?, last_edit_time=?, advice=? WHERE shop_id=? 
+2018-04-02 21:12:08.033[main] DEBUG com.yequan.o2o.dao.ShopDao.updateShop-==> Parameters: 更新店铺名称(String), 新描述(String), 更新店铺地址(String), 新电话(String), img(String), 2018-04-02 21:12:07.778(Timestamp), 审核通过(String), 39(Long)
+2018-04-02 21:12:08.038[main] DEBUG com.yequan.o2o.dao.ShopDao.updateShop-<==    Updates: 1
