@@ -37,10 +37,10 @@ public class AreaController {
             modelMap.put("total", areaList.size());
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error("test error!");
             modelMap.put("success", false);
             modelMap.put("errMsg", e.toString());
         }
-        logger.error("test error!");
         long endTime = System.currentTimeMillis();
         logger.debug("costTime:[{}ms]", endTime - startTime);
         logger.info("===end===");
