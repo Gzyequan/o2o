@@ -1,25 +1,32 @@
-package com.yequan.o2o.dao;
+package com.yequan.o2o.service;
 
 import com.yequan.o2o.BaseTest;
+import com.yequan.o2o.dto.ShopExecution;
 import com.yequan.o2o.entity.Area;
 import com.yequan.o2o.entity.PersonInfo;
 import com.yequan.o2o.entity.Shop;
 import com.yequan.o2o.entity.ShopCategory;
+import com.yequan.o2o.enums.ShopStateEnum;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
-public class ShopDaoTest extends BaseTest {
+public class ShopServiceTest extends BaseTest {
+
     @Autowired
-    private ShopDao shopDao;
+    private ShopService shopService;
 
     @Test
     @Ignore
-    public void testInsertShop() {
+    public void testAddShop() throws FileNotFoundException {
         Shop shop = new Shop();
         PersonInfo owner = new PersonInfo();
         Area area = new Area();
@@ -30,28 +37,20 @@ public class ShopDaoTest extends BaseTest {
         shop.setOwner(owner);
         shop.setArea(area);
         shop.setShopCategory(shopCategory);
-        shop.setShopName("测试店铺名");
-        shop.setEnableStatus(1);
-        shop.setAddress("test");
+        shop.setShopName("测试店铺名3");
+        shop.setEnableStatus(ShopStateEnum.CHECK.getState());
+        shop.setAddress("test3");
         shop.setAdvice("审核中");
         shop.setCreateTime(new Date());
         shop.setLastEditTime(new Date());
-        shop.setPhone("test");
+        shop.setPhone("test3");
         shop.setPriority(1);
-        shop.setShopDesc("test");
-        shop.setShopImg("test");
-        int insertShop = shopDao.insertShop(shop);
-        assertEquals(1, insertShop);
-    }
+        shop.setShopDesc("test3");
 
-    @Test
-    @Ignore
-    public void testUpdateShop() {
-        Shop shop = new Shop();
-        shop.setShopId(37L);
-        shop.setLastEditTime(new Date());
-        shop.setAddress("更新测试地址");
-        shopDao.updateShop(shop);
+        File shopImg = new File("F:/servicefile/upload/mogu.jpg");
+        InputStream inputStream = new FileInputStream(shopImg);
+        ShopExecution shopExecution = shopService.addShop(shop, inputStream, shopImg.getName());
+        assertEquals(ShopStateEnum.CHECK.getState(), shopExecution.getState());
     }
 
 }

@@ -11,6 +11,7 @@ public class ConfigFileUtil {
         String property = "";
         try {
             Properties properties = PropertiesLoaderUtils.loadAllProperties("classpath:config.properties");
+            System.out.println(properties.size());
             property = properties.getProperty(key);
         } catch (IOException e) {
             e.printStackTrace();

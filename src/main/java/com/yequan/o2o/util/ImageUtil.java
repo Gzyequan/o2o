@@ -9,6 +9,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -35,20 +36,21 @@ public class ImageUtil {
     /**
      * 处理缩略图，并返回缩略图的相对路径
      *
-     * @param thumbnail
-     * @param targetAddr
+     * @param thumbnailInputStream 图片File对象
+     * @param targetAddr           相对路径中的文件夹，例如 /data/shop/images/a.jpg  targetAddr就是/data/shop/images/
      * @return
      */
-    public static String generateThumbnail(File thumbnail, String targetAddr) {
+    public static String generateThumbnail(InputStream thumbnailInputStream, String fileName, String targetAddr) {
         String realFileName = getRandomFileName();
-        String extension = getThumbnailExtension(thumbnail);
+        String extension = getThumbnailExtension(fileName);
         makeDirPath(targetAddr);
         String relativePath = targetAddr + realFileName + extension;
-        logger.debug("current relative address is", relativePath);
+        logger.debug("current relative address is : " + relativePath);
         File dest = new File(PathUtil.getImageBasePth() + relativePath);
-        logger.debug("current complete address is", PathUtil.getImageBasePth() + relativePath);
+        logger.debug("current complete address is : " + PathUtil.getImageBasePth() + relativePath);
+        logger.debug("base path is : " + basePath);
         try {
-            Thumbnails.of(thumbnail).size(200, 200)
+            Thumbnails.of(thumbnailInputStream).size(200, 200)
                     .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.png")), 0.25f)
                     .outputQuality(0.8f).toFile(dest);
         } catch (IOException e) {
@@ -77,9 +79,8 @@ public class ImageUtil {
      *
      * @return
      */
-    private static String getThumbnailExtension(File thumbnail) {
-        String originalFilename = thumbnail.getName();
-        return originalFilename.substring(originalFilename.lastIndexOf("."));
+    private static String getThumbnailExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf("."));
     }
 
     /**
@@ -87,7 +88,7 @@ public class ImageUtil {
      *
      * @return
      */
-    private static String getRandomFileName() {
+    public static String getRandomFileName() {
         String nowTimeStr = sDateFormat.format(new Date());
         int rannum = random.nextInt(89999) + 10000;
         return nowTimeStr + rannum;
