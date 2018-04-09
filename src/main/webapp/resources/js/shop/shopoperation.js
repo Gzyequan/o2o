@@ -37,10 +37,17 @@ $(function () {
                 return !this.selected;
             }).data('id')
         };
+
         var shopImg = $('#shop-image')[0].files[0];
         var formData = new FormData();
         formData.append('shopImg', shopImg);
         formData.append('shopStr', JSON.stringify(shop));
+        var verifyCode = $('#j-captcha').val();
+        if (verifyCode == null) {
+            $.toast("验证码不能为空！");
+            return;
+        }
+        formData.append('verifyCodeActual', verifyCode);
         $.ajax({
             url: registerShopUrl,
             type: 'POST',
@@ -54,6 +61,7 @@ $(function () {
                 } else {
                     $.toast('提交失败！' + data.errMsg);
                 }
+                $('#captcha-img').click();
             }
         })
     })
