@@ -73,6 +73,8 @@ public class ShopManagementController {
         Shop shop = null;
         try {
             shop = mapper.readValue(shopStr, Shop.class);
+            shop.setAdvice("审核中");
+            shop.setPriority(1);
         } catch (Exception e) {
             modelMap.put("success", false);
             modelMap.put("errMsg", e.getMessage());

@@ -51,7 +51,7 @@ public class ImageUtil {
         logger.debug("base path is : " + basePath);
         try {
             Thumbnails.of(thumbnailInputStream).size(200, 200)
-                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.png")), 0.25f)
+                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "watermark.jpg")), 0.25f)
                     .outputQuality(0.8f).toFile(dest);
         } catch (IOException e) {
             logger.error(e.toString());
@@ -98,6 +98,24 @@ public class ImageUtil {
         Thumbnails.of(new File("F:/o2o/image/mogu.jpg")).size(200, 200)
                 .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.png")), 0.25f)
                 .outputQuality(0.8f).toFile("F:/o2o/image/mogunew.jpg");
+    }
+
+    /**
+     * storeFile是文件路径或文件所在目录，如果是文件路径则删除文件，如果是文件所在的目录，则删除该目录下的所有文件
+     *
+     * @param storeFile
+     */
+    public static void deleteFileOrPath(String storeFile) {
+        File fileOrPath = new File(PathUtil.getImageBasePth() + storeFile);
+        if (fileOrPath.isDirectory()) {
+            File[] files = fileOrPath.listFiles();
+            if (null != files && files.length > 0) {
+                for (File file : files) {
+                    file.delete();
+                }
+            }
+            fileOrPath.delete();
+        }
     }
 
 }

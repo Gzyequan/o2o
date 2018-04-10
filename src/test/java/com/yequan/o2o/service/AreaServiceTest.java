@@ -15,7 +15,7 @@ public class AreaServiceTest extends BaseTest {
     private AreaService areaService;
 
     @Test
-    @Ignore
+//    @Ignore
     public void testQueryArea(){
         List<Area> areas = areaService.queryArea();
         assertEquals("西苑",areas.get(0).getAreaName());
