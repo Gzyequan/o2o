@@ -32,7 +32,7 @@ public class AreaController {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         List<Area> areaList = new ArrayList<Area>();
         try {
-            areaList = areaService.queryArea();
+            areaList = areaService.getAreaList();
             modelMap.put("rows", areaList);
             modelMap.put("total", areaList.size());
         } catch (Exception e) {

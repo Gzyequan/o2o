@@ -13,7 +13,7 @@ public class AreaServiceImpl implements AreaService {
     @Autowired
     private AreaDao areaDao;
 
-    public List<Area> queryArea() {
+    public List<Area> getAreaList() {
         return areaDao.queryArea();
     }
 }

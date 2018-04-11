@@ -54,16 +54,39 @@ public class ShopServiceTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testModifyShop() throws FileNotFoundException {
         Shop shop = new Shop();
         shop.setShopId(77L);
         shop.setAddress("西苑12号");
         shop.setShopDesc("美味，刺激，热辣的草原烧烤");
-        File shopImg = new File("F:/servicefile/upload/mogu.jpg");
+        File shopImg = new File("F:/servicefile/upload/duola.png");
         InputStream inputStream = new FileInputStream(shopImg);
         ShopExecution shopExecution = shopService.modifyShop(shop, inputStream, shopImg.getName());
         System.out.println(shopExecution.getStateInfo());
         System.out.println(shopExecution.getShop().getShopDesc());
+    }
+
+    @Test
+    @Ignore
+    public void testQueryShopList() {
+        Shop shop = new Shop();
+        PersonInfo owner = new PersonInfo();
+        owner.setUserId(1L);
+        ShopCategory shopCategory = new ShopCategory();
+        shopCategory.setShopCategoryId(20L);
+        Area area = new Area();
+        area.setAreaId(2);
+
+//        shop.setShopCategory(shopCategory);
+//        shop.setArea(area);
+//        shop.setOwner(owner);
+        shop.setEnableStatus(1);
+//        shop.setShopName("奶茶");
+
+        ShopExecution shopExecution = shopService.queryShopList(shop, 1, 10);
+        System.out.println(shopExecution.getShopList().size());
+        System.out.println(shopExecution.getShopList().get(0).getShopName());
     }
 
 }

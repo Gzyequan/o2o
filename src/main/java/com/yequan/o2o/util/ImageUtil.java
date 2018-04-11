@@ -114,8 +114,8 @@ public class ImageUtil {
                     file.delete();
                 }
             }
-            fileOrPath.delete();
         }
+        fileOrPath.delete();
     }
 
 }

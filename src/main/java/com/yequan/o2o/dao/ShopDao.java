@@ -1,8 +1,30 @@
 package com.yequan.o2o.dao;
 
 import com.yequan.o2o.entity.Shop;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ShopDao {
+
+    /**
+     * 分页查询点偶列表，可输入的查询条件：店铺名（模糊），店铺状态，店铺类别，区域，owner
+     *
+     * @param shopCondition 查询条件
+     * @param rowIndex      开始查询的条数
+     * @param pageSize      返回的条数
+     * @return
+     */
+    List<Shop> queryShopList(@Param("shopCondition") Shop shopCondition, @Param("rowIndex") int rowIndex,
+                             @Param("pageSize") int pageSize);
+
+    /**
+     * 返回某查询条件下的店铺总数
+     *
+     * @param shopCondition
+     * @return
+     */
+    int queryShopCount(@Param("shopCondition") Shop shopCondition);
 
     /**
      * 根据shopId查询店铺信息

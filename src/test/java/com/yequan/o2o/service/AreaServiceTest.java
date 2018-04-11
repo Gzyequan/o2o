@@ -2,7 +2,6 @@ package com.yequan.o2o.service;
 
 import com.yequan.o2o.BaseTest;
 import com.yequan.o2o.entity.Area;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +16,7 @@ public class AreaServiceTest extends BaseTest {
     @Test
 //    @Ignore
     public void testQueryArea(){
-        List<Area> areas = areaService.queryArea();
+        List<Area> areas = areaService.getAreaList();
         assertEquals("西苑",areas.get(0).getAreaName());
         System.out.println(areas.get(0).getAreaName());
     }

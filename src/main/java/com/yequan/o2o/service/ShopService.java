@@ -9,9 +9,43 @@ import java.io.InputStream;
 
 public interface ShopService {
 
+    /**
+     * 根据查询条件分页获取店铺列表
+     *
+     * @param shopCondition
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    ShopExecution queryShopList(Shop shopCondition, int pageIndex, int pageSize);
+
+    /**
+     * 根据id获取店铺信息
+     *
+     * @param shopId
+     * @return
+     */
     Shop getByShopId(Long shopId);
 
+    /**
+     * 添加新店铺信息
+     *
+     * @param shop
+     * @param shopImgInputStream
+     * @param fileName
+     * @return
+     * @throws ShopOperationException
+     */
     ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException;
 
+    /**
+     * 修改店铺信息
+     *
+     * @param shop
+     * @param shopImgInputStream
+     * @param fileName
+     * @return
+     * @throws ShopOperationException
+     */
     ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException;
 }
