@@ -131,6 +131,7 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <!-- json解析 -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -138,6 +139,7 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.github.penggle/kaptcha -->
+        <!--生成验证码-->
         <dependency>
             <groupId>com.github.penggle</groupId>
             <artifactId>kaptcha</artifactId>
