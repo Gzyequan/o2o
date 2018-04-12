@@ -1,6 +1,7 @@
 package com.yequan.o2o.service;
 
 import com.yequan.o2o.BaseTest;
+import com.yequan.o2o.dto.ImageHolder;
 import com.yequan.o2o.dto.ShopExecution;
 import com.yequan.o2o.entity.Area;
 import com.yequan.o2o.entity.PersonInfo;
@@ -49,7 +50,8 @@ public class ShopServiceTest extends BaseTest {
 
         File shopImg = new File("F:/servicefile/upload/mogu.jpg");
         InputStream inputStream = new FileInputStream(shopImg);
-        ShopExecution shopExecution = shopService.addShop(shop, inputStream, shopImg.getName());
+        ImageHolder thumbnail = new ImageHolder(shopImg.getName(), inputStream);
+        ShopExecution shopExecution = shopService.addShop(shop, thumbnail);
         assertEquals(ShopStateEnum.CHECK.getState(), shopExecution.getState());
     }
 
@@ -62,7 +64,8 @@ public class ShopServiceTest extends BaseTest {
         shop.setShopDesc("美味，刺激，热辣的草原烧烤");
         File shopImg = new File("F:/servicefile/upload/duola.png");
         InputStream inputStream = new FileInputStream(shopImg);
-        ShopExecution shopExecution = shopService.modifyShop(shop, inputStream, shopImg.getName());
+        ImageHolder thumbnail = new ImageHolder(shopImg.getName(), inputStream);
+        ShopExecution shopExecution = shopService.modifyShop(shop, thumbnail);
         System.out.println(shopExecution.getStateInfo());
         System.out.println(shopExecution.getShop().getShopDesc());
     }

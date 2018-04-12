@@ -1,5 +1,6 @@
 package com.yequan.o2o.service;
 
+import com.yequan.o2o.dto.ImageHolder;
 import com.yequan.o2o.dto.ShopExecution;
 import com.yequan.o2o.entity.Shop;
 import com.yequan.o2o.exceptions.ShopOperationException;
@@ -31,21 +32,19 @@ public interface ShopService {
      * 添加新店铺信息
      *
      * @param shop
-     * @param shopImgInputStream
-     * @param fileName
+     * @param imageHolder
      * @return
      * @throws ShopOperationException
      */
-    ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException;
+    ShopExecution addShop(Shop shop, ImageHolder imageHolder) throws ShopOperationException;
 
     /**
      * 修改店铺信息
      *
      * @param shop
-     * @param shopImgInputStream
-     * @param fileName
+     * @param imageHolder
      * @return
      * @throws ShopOperationException
      */
-    ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException;
+    ShopExecution modifyShop(Shop shop, ImageHolder imageHolder) throws ShopOperationException;
 }

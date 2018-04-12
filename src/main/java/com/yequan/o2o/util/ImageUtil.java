@@ -1,5 +1,6 @@
 package com.yequan.o2o.util;
 
+import com.yequan.o2o.dto.ImageHolder;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.slf4j.Logger;
@@ -36,13 +37,13 @@ public class ImageUtil {
     /**
      * 处理缩略图，并返回缩略图的相对路径
      *
-     * @param thumbnailInputStream 图片File对象
-     * @param targetAddr           相对路径中的文件夹，例如 /data/shop/images/a.jpg  targetAddr就是/data/shop/images/
+     * @param thumbnail  图片File对象
+     * @param targetAddr 相对路径中的文件夹，例如 /data/shop/images/a.jpg  targetAddr就是/data/shop/images/
      * @return
      */
-    public static String generateThumbnail(InputStream thumbnailInputStream, String fileName, String targetAddr) {
+    public static String generateThumbnail(ImageHolder thumbnail, String targetAddr) {
         String realFileName = getRandomFileName();
-        String extension = getThumbnailExtension(fileName);
+        String extension = getThumbnailExtension(thumbnail.getImageName());
         makeDirPath(targetAddr);
         String relativePath = targetAddr + realFileName + extension;
         logger.debug("current relative address is : " + relativePath);
@@ -50,7 +51,7 @@ public class ImageUtil {
         logger.debug("current complete address is : " + PathUtil.getImageBasePth() + relativePath);
         logger.debug("base path is : " + basePath);
         try {
-            Thumbnails.of(thumbnailInputStream).size(200, 200)
+            Thumbnails.of(thumbnail.getImage()).size(200, 200)
                     .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "watermark.jpg")), 0.25f)
                     .outputQuality(0.8f).toFile(dest);
         } catch (IOException e) {

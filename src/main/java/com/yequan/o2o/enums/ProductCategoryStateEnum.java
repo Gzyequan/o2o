@@ -1,7 +1,8 @@
 package com.yequan.o2o.enums;
 
 public enum ProductCategoryStateEnum {
-    SUCCESS(1, "创建成功"), INNER_ERROR(-1001, "操作失败");
+    SUCCESS(1, "操作成功"), INNER_ERROR(-1001, "操作失败"), EMPTY_LIST(-1002, "商品分类集合为空"),
+    EMPTY_ID(-1003, "商品分类id为空");
     private int state;
     private String stateInfo;
 
