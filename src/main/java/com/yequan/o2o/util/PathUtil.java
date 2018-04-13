@@ -5,7 +5,7 @@ public class PathUtil {
 
     private static String separator = System.getProperty("file.separator");
 
-    public static String getImageBasePth() {
+    public static String getImageBasePath() {
         String os = System.getProperty("os.name");
         String basePath = "";
         if (os.toLowerCase().startsWith("win")) {

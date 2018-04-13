@@ -9,6 +9,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -47,8 +48,8 @@ public class ImageUtil {
         makeDirPath(targetAddr);
         String relativePath = targetAddr + realFileName + extension;
         logger.debug("current relative address is : " + relativePath);
-        File dest = new File(PathUtil.getImageBasePth() + relativePath);
-        logger.debug("current complete address is : " + PathUtil.getImageBasePth() + relativePath);
+        File dest = new File(PathUtil.getImageBasePath() + relativePath);
+        logger.debug("current complete address is : " + PathUtil.getImageBasePath() + relativePath);
         logger.debug("base path is : " + basePath);
         try {
             Thumbnails.of(thumbnail.getImage()).size(200, 200)
@@ -56,8 +57,36 @@ public class ImageUtil {
                     .outputQuality(0.8f).toFile(dest);
         } catch (IOException e) {
             logger.error(e.toString());
-            e.printStackTrace();
+            throw new RuntimeException("创建缩图片失败：" + e.toString());
         }
+        return relativePath;
+    }
+
+    /**
+     * 处理详情图，并返回新生成图片的相对值路径
+     *
+     * @param thumbnail
+     * @param targetAddr
+     * @return
+     */
+    public static String generateNormalImg(ImageHolder thumbnail, String targetAddr) {
+        String realFileName = getRandomFileName();
+        String extension = getThumbnailExtension(thumbnail.getImageName());
+        makeDirPath(targetAddr);
+        String relativePath = targetAddr + realFileName + extension;
+        logger.debug("current relative address is :" + relativePath);
+        File dest = new File(PathUtil.getImageBasePath() + relativePath);
+        logger.debug("current complete address is :" + PathUtil.getImageBasePath() + relativePath);
+        logger.debug("base path is : " + basePath);
+        try {
+            Thumbnails.of(thumbnail.getImage()).size(337, 640)
+                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "watermark.jpg")), 0.25f)
+                    .outputQuality(0.9f).toFile(dest);
+        } catch (IOException e) {
+            logger.error(e.toString());
+            throw new RuntimeException("创建缩略图失败：" + e.toString());
+        }
+        // 返回图片相对路径地址
         return relativePath;
     }
 
@@ -68,7 +97,7 @@ public class ImageUtil {
      * @param targetAddr
      */
     private static void makeDirPath(String targetAddr) {
-        String realFileParentPath = PathUtil.getImageBasePth() + targetAddr;
+        String realFileParentPath = PathUtil.getImageBasePath() + targetAddr;
         File dirPath = new File(realFileParentPath);
         if (!dirPath.exists()) {
             dirPath.mkdirs();
@@ -107,7 +136,7 @@ public class ImageUtil {
      * @param storeFile
      */
     public static void deleteFileOrPath(String storeFile) {
-        File fileOrPath = new File(PathUtil.getImageBasePth() + storeFile);
+        File fileOrPath = new File(PathUtil.getImageBasePath() + storeFile);
         if (fileOrPath.isDirectory()) {
             File[] files = fileOrPath.listFiles();
             if (null != files && files.length > 0) {
