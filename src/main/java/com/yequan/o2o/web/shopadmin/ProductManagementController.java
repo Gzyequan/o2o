@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yequan.o2o.dto.ImageHolder;
 import com.yequan.o2o.dto.ProductExecution;
 import com.yequan.o2o.entity.Product;
+import com.yequan.o2o.entity.ProductCategory;
 import com.yequan.o2o.entity.Shop;
 import com.yequan.o2o.enums.ProductStateEnum;
 import com.yequan.o2o.exceptions.ProductOperationException;
@@ -20,10 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +36,28 @@ public class ProductManagementController {
 
     @Autowired
     private ProductService productService;
+
+    @RequestMapping(value = "/getproductlistbyshop", method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String, Object> getProductListByShop(HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+        int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+        Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+        if (pageIndex > -1 && pageSize > -1 && null != currentShop && null != currentShop.getShopId()) {
+            long productCategoryId = HttpServletRequestUtil.getLong(request, "productCategoryId");
+            String productName = HttpServletRequestUtil.getString(request, "productName");
+            Product productCondition = compactProductCondition(currentShop.getShopId(), productCategoryId, productName);
+            ProductExecution pe = productService.getProductList(productCondition, pageIndex, pageSize);
+            modelMap.put("success", true);
+            modelMap.put("productList", pe.getProductList());
+            modelMap.put("count", pe.getCount());
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "pageIndex or pageSize id null");
+        }
+        return modelMap;
+    }
 
     @RequestMapping(value = "/addproduct", method = RequestMethod.POST)
     @ResponseBody
@@ -113,5 +134,21 @@ public class ProductManagementController {
             modelMap.put("errMsg", "请输入商品信息");
         }
         return modelMap;
+    }
+
+    private Product compactProductCondition(Long shopId, Long productCategoryId, String productName) {
+        Product productCondition = new Product();
+        Shop shop = new Shop();
+        shop.setShopId(shopId);
+        productCondition.setShop(shop);
+        if (productCategoryId > -1L) {
+            ProductCategory productCategory = new ProductCategory();
+            productCategory.setProductCategoryId(productCategoryId);
+            productCondition.setProductCategory(productCategory);
+        }
+        if (null != productName) {
+            productCondition.setProductName(productName);
+        }
+        return productCondition;
     }
 }

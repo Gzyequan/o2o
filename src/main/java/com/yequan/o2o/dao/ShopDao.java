@@ -8,7 +8,7 @@ import java.util.List;
 public interface ShopDao {
 
     /**
-     * 分页查询点偶列表，可输入的查询条件：店铺名（模糊），店铺状态，店铺类别，区域，owner
+     * 分页查询店铺列表，可输入的查询条件：店铺名（模糊），店铺状态，店铺类别，区域，owner
      *
      * @param shopCondition 查询条件
      * @param rowIndex      开始查询的条数

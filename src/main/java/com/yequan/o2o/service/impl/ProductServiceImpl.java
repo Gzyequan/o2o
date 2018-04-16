@@ -10,6 +10,7 @@ import com.yequan.o2o.enums.ProductStateEnum;
 import com.yequan.o2o.exceptions.ProductOperationException;
 import com.yequan.o2o.service.ProductService;
 import com.yequan.o2o.util.ImageUtil;
+import com.yequan.o2o.util.PageCalculateUtil;
 import com.yequan.o2o.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,20 @@ public class ProductServiceImpl implements ProductService {
         } else {
             return new ProductExecution(ProductStateEnum.EMPTY);
         }
+    }
+
+    public ProductExecution getProductList(Product productCondition, int pageIndex, int pageSize) {
+        int rowIndex = PageCalculateUtil.rowIndexCalculate(pageIndex, pageSize);
+        List<Product> productList = productDao.queryProductList(productCondition, rowIndex, pageSize);
+        ProductExecution pe = new ProductExecution();
+        if (null != productList) {
+            pe.setCount(productList.size());
+            pe.setProductList(productList);
+            pe.setState(ProductStateEnum.SUCCESS.getState());
+        } else {
+            pe.setState(ProductStateEnum.INNER_ERROR.getState());
+        }
+        return pe;
     }
 
     private void addProductImageList(Product product, List<ImageHolder> imageHolderList) {

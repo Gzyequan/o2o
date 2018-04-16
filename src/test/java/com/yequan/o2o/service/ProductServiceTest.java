@@ -62,4 +62,17 @@ public class ProductServiceTest extends BaseTest {
         assertEquals(ProductStateEnum.SUCCESS.getState(), pe.getState());
     }
 
+    @Test
+    public void testGetProductList() {
+        Product product = new Product();
+        Shop shop = new Shop();
+        shop.setShopId(77L);
+        product.setShop(shop);
+        ProductExecution pe = productService.getProductList(product, 1, 10);
+        System.out.println(ProductStateEnum.stateOf(pe.getState()).getStateInfo());
+        for (Product product1 : pe.getProductList()) {
+            System.out.println(product1.getProductName());
+        }
+    }
+
 }

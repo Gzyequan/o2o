@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
 
 public class ProductDaoTest extends BaseTest {
 
@@ -23,6 +24,7 @@ public class ProductDaoTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testInsertProduct() {
         Product product = new Product();
         product.setCreateTime(new Date());
@@ -44,6 +46,31 @@ public class ProductDaoTest extends BaseTest {
 
         int effectNum = productDao.insertProduct(product);
         System.out.println(effectNum);
+    }
+
+    @Test
+    @Ignore
+    public void testQueryProductCount() {
+        Product product = new Product();
+        Shop shop = new Shop();
+        shop.setShopId(77L);
+        product.setShop(shop);
+        int productCount = productDao.queryProductCount(product);
+        System.out.println(productCount);
+    }
+
+    @Test
+    @Ignore
+    public void testQueryProductList() {
+        Product product = new Product();
+        Shop shop = new Shop();
+        shop.setShopId(77L);
+        product.setShop(shop);
+        List<Product> products = productDao.queryProductList(product, 0, 10);
+        System.out.println(products.size());
+        for (Product product1 : products) {
+            System.out.println(product1.getProductName());
+        }
     }
 
 }
