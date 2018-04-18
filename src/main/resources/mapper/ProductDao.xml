@@ -93,19 +93,19 @@
     <select id="queryProductList" resultType="com.yequan.o2o.entity.Product">
         SELECT
         product_id,
-		product_name,
-		product_desc,
-		img_addr,
-		normal_price,
-		promotion_price,
-		priority,
-		create_time,
-		last_edit_time,
-		enable_status,
-		product_category_id,
-		shop_id
-		FROM
-		tb_product
+        product_name,
+        product_desc,
+        img_addr,
+        normal_price,
+        promotion_price,
+        priority,
+        create_time,
+        last_edit_time,
+        enable_status,
+        product_category_id,
+        shop_id
+        FROM
+        tb_product
         <where>
             <if test="productCondition.shop != null and productCondition.shop.shopId">
                 AND shop_id = #{productCondition.shop.shopId}
@@ -123,5 +123,54 @@
         ORDER BY priority DESC
         LIMIT #{rowIndex},#{pageSize}
     </select>
+
+    <select id="queryByProductId" parameterType="java.lang.Long" resultMap="productMap">
+        SELECT
+		p.product_id,
+		p.product_name,
+		p.product_desc,
+		p.img_addr,
+		p.normal_price,
+		p.promotion_price,
+		p.priority,
+		p.create_time,
+		p.last_edit_time,
+		p.enable_status,
+		p.product_category_id,
+		p.shop_id,
+		pm.product_img_id,
+		pm.img_addr AS detail_img,
+		pm.img_desc,
+		pm.priority,
+		pm.create_time
+        FROM tb_product p
+        LEFT JOIN tb_product_img pm
+        ON p.product_id=pm.product_id
+        WHERE p.product_id = #{productId}
+        ORDER BY pm.priority DESC ;
+    </select>
+
+    <update id="updateProduct" parameterType="com.yequan.o2o.entity.Product" keyProperty="product_id"
+            useGeneratedKeys="true">
+        UPDATE tb_product
+        <set>
+            <if test="productName != null">product_name=#{productName},</if>
+            <if test="productDesc != null">product_desc=#{productDesc},</if>
+            <if test="imgAddr != null">img_addr=#{imgAddr},</if>
+            <if test="normalPrice != null">normal_price=#{normalPrice},</if>
+            <if test="promotionPrice != null">promotion_price=#{promotionPrice},</if>
+            <if test="priority != null">priority=#{priority},</if>
+            <if test="createTime != null">create_time=#{createTime},</if>
+            <if test="lastEditTime != null">last_edit_time=#{lastEditTime},</if>
+            <if test="enableStatus != null">enable_status=#{enableStatus},</if>
+            <if test="productCategory != null and productCategory.productCategoryId !=null">
+                product_category_id=#{productCategory.productCategoryId}
+            </if>
+        </set>
+        WHERE
+        product_id = #{productId}
+        AND
+        shop_id = #{shop.shopId}
+    </update>
 
 </mapper>

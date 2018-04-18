@@ -73,4 +73,33 @@ public class ProductDaoTest extends BaseTest {
         }
     }
 
+    @Test
+    @Ignore
+    public void testQueryByProductId() {
+        Product product = productDao.queryByProductId(1L);
+        System.out.println(product.getProductImgList().size());
+    }
+
+    @Test
+    public void testUpdateProduct() {
+        Product product = new Product();
+        product.setProductId(15L);
+        Shop shop = new Shop();
+        shop.setShopId(77L);
+        product.setShop(shop);
+        product.setCreateTime(new Date());
+        product.setLastEditTime(new Date());
+        product.setProductName("撒尿牛丸");
+        product.setProductDesc("美味滋滋的撒尿牛丸");
+        product.setPriority(20);
+        product.setNormalPrice("5元/个");
+        product.setPromotionPrice("5元/个");
+        product.setEnableStatus(1);
+
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setProductCategoryId(13L);
+        int effectNum = productDao.updateProduct(product);
+        System.out.println(effectNum);
+    }
+
 }

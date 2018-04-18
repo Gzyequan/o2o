@@ -23,11 +23,23 @@ public interface ProductService {
 
     /**
      * 分页查询商品列表，可输入的查询条件：商品名，店铺id，商品类别，商品状态
+     *
      * @param productCondition
      * @param pageIndex
      * @param pageSize
      * @return
      */
-    ProductExecution getProductList(Product productCondition,int pageIndex,int pageSize);
+    ProductExecution getProductList(Product productCondition, int pageIndex, int pageSize);
+
+    /**
+     * 根据商品Id查询商品信息
+     *
+     * @param productId
+     * @return
+     */
+    Product getProductById(Long productId);
+
+    ProductExecution modifyProduct(Product product, ImageHolder thumbnail, List<ImageHolder> imageHolderList)
+            throws ProductOperationException;
 
 }

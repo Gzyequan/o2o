@@ -39,4 +39,17 @@ public class ProductImgDaoTest extends BaseTest {
         System.out.println(effectNum);
     }
 
+    @Test
+    @Ignore
+    public void testQueryProductImgList() {
+        List<ProductImg> productImgList = productImgDao.queryProductImgList(45L);
+        System.out.println(productImgList.size());
+    }
+
+    @Test
+    public void testDeleteProductImgByProductId(){
+        int effectNum = productImgDao.deleteProductImgByProductId(58L);
+        System.out.println(effectNum);
+    }
+
 }

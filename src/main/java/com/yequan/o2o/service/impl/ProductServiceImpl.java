@@ -72,6 +72,43 @@ public class ProductServiceImpl implements ProductService {
         return pe;
     }
 
+    public Product getProductById(Long productId) {
+        return productDao.queryByProductId(productId);
+    }
+
+    public ProductExecution modifyProduct(Product product, ImageHolder thumbnail, List<ImageHolder> imageHolderList)
+            throws ProductOperationException {
+        if (null != product && null != product.getShop() && null != product.getShop().getShopId()) {
+            //更新缩略图
+            product.setLastEditTime(new Date());
+            if (null != thumbnail) {
+                Product tempProduct = productDao.queryByProductId(product.getProductId());
+                if (null != tempProduct && null != tempProduct.getImgAddr()) {
+                    //删除原缩略图
+                    ImageUtil.deleteFileOrPath(tempProduct.getImgAddr());
+                }
+                addThumbnail(product, thumbnail);
+            }
+            //更新商品信息
+            try {
+                int effectNum = productDao.updateProduct(product);
+                if (effectNum <= 0) {
+                    throw new ProductOperationException("商品更新失败");
+                }
+            } catch (Exception e) {
+                throw new ProductOperationException("商品更新失败：" + e.getMessage());
+            }
+            //更新商品详情图
+            if (null != imageHolderList && imageHolderList.size() > 0) {
+                deleteProductImageList(product.getProductId());
+                addProductImageList(product, imageHolderList);
+            }
+            return new ProductExecution(ProductStateEnum.SUCCESS);
+        } else {
+            return new ProductExecution(ProductStateEnum.EMPTY);
+        }
+    }
+
     private void addProductImageList(Product product, List<ImageHolder> imageHolderList) {
         String dest = PathUtil.getShopImagePath(product.getShop().getShopId());
         List<ProductImg> productImgList = new ArrayList<ProductImg>();
@@ -105,5 +142,20 @@ public class ProductServiceImpl implements ProductService {
         String dest = PathUtil.getShopImagePath(product.getShop().getShopId());
         String thumbnailAddr = ImageUtil.generateThumbnail(thumbnail, dest);
         product.setImgAddr(thumbnailAddr);
+    }
+
+    /**
+     * 删除商品的详情图
+     *
+     * @param productId
+     */
+    private void deleteProductImageList(Long productId) {
+        List<ProductImg> productImgList = productImgDao.queryProductImgList(productId);
+        for (ProductImg productImg : productImgList) {
+            //删除 图片
+            ImageUtil.deleteFileOrPath(productImg.getImgAddr());
+        }
+        //删除表中数据
+        productImgDao.deleteProductImgByProductId(productId);
     }
 }

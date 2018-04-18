@@ -80,7 +80,7 @@ $(function () {
     });
 
     $('#back').click(function () {
-        window.location.href='/o2o/shopadmin/productmanagement';
+        window.location.href = '/o2o/shopadmin/productmanagement';
     });
 
     // 提交按钮的事件响应，分别对商品添加和编辑操作做不同响应
