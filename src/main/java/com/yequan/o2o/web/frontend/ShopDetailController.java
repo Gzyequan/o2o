@@ -67,11 +67,12 @@ public class ShopDetailController {
             long productCategoryId = HttpServletRequestUtil.getLong(request, "productCategoryId");
             String productName = HttpServletRequestUtil.getString(request, "productName");
             Product productCondition = compactShopCondition4Search(shopId, productCategoryId, productName);
-            ProductExecution productList = null;
+            ProductExecution productExecution = null;
             try {
-                productList = productService.getProductList(productCondition, pageIndex, pageSize);
+                productExecution = productService.getProductList(productCondition, pageIndex, pageSize);
                 modelMap.put("success", true);
-                modelMap.put("productList", productList);
+                modelMap.put("productList", productExecution.getProductList());
+                modelMap.put("count", productExecution.getCount());
             } catch (Exception e) {
                 modelMap.put("success", false);
                 modelMap.put("errMsg", e.getMessage());

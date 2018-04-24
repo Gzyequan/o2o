@@ -14,7 +14,7 @@ public class FrontendController {
     }
 
     /**
-     * 商品列表页路由
+     * 商铺列表页路由
      *
      * @return
      */
@@ -22,5 +22,21 @@ public class FrontendController {
     private String showShopList() {
         return "frontend/shoplist";
     }
+
+    /**
+     * 商铺详情页路由
+     *
+     * @return
+     */
+    @RequestMapping(value = "/shopdetail", method = RequestMethod.GET)
+    private String showShopDetail() {
+        return "frontend/shopdetail";
+    }
+
+    @RequestMapping(value = "/productdetail",method = RequestMethod.GET)
+    private String showProductDetail() {
+        return "frontend/productdetail";
+    }
+
 
 }

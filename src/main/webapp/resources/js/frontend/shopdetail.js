@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     var loading = false;
     // 分页允许返回的最大条数，超过此数则禁止访问后台
     var maxItems = 20;
@@ -28,7 +28,7 @@ $(function() {
         $
             .getJSON(
                 url,
-                function(data) {
+                function (data) {
                     if (data.success) {
                         var shop = data.shop;
                         $('#shop-cover-pic').attr('src', shop.shopImg);
@@ -44,7 +44,7 @@ $(function() {
                         var html = '';
                         // 遍历商品列表，生成可以点击搜索相应商品类别下的商品的a标签
                         productCategoryList
-                            .map(function(item, index) {
+                            .map(function (item, index) {
                                 html += '<a href="#" class="button" data-product-search-id='
                                     + item.productCategoryId
                                     + '>'
@@ -56,6 +56,7 @@ $(function() {
                     }
                 });
     }
+
     /**
      * 获取分页展示的商品列表信息
      *
@@ -71,13 +72,13 @@ $(function() {
         // 设定加载符，若还在后台取数据则不能再次访问后台，避免多次重复加载
         loading = true;
         // 访问后台获取相应查询条件下的商品列表
-        $.getJSON(url, function(data) {
+        $.getJSON(url, function (data) {
             if (data.success) {
                 // 获取当前查询条件下商品的总数
                 maxItems = data.count;
                 var html = '';
                 // 遍历商品列表，拼接出卡片集合
-                data.productList.map(function(item, index) {
+                data.productList.map(function (item, index) {
                     html += '' + '<div class="card" data-product-id='
                         + item.productId + '>'
                         + '<div class="card-header">' + item.productName
@@ -117,7 +118,7 @@ $(function() {
     }
 
     // 下滑屏幕自动进行分页搜索
-    $(document).on('infinite', '.infinite-scroll-bottom', function() {
+    $(document).on('infinite', '.infinite-scroll-bottom', function () {
         if (loading)
             return;
         addItems(pageSize, pageNum);
@@ -126,7 +127,7 @@ $(function() {
     $('#shopdetail-button-div').on(
         'click',
         '.button',
-        function(e) {
+        function (e) {
             // 获取商品类别Id
             productCategoryId = e.target.dataset.productSearchId;
             if (productCategoryId) {
@@ -147,20 +148,20 @@ $(function() {
     $('.list-div').on(
         'click',
         '.card',
-        function(e) {
+        function (e) {
             var productId = e.currentTarget.dataset.productId;
             window.location.href = '/o2o/frontend/productdetail?productId='
                 + productId;
         });
     // 需要查询的商品名字发生变化后，重置页码，清空原先的商品列表，按照新的名字去查询
-    $('#search').on('change', function(e) {
+    $('#search').on('change', function (e) {
         productName = e.target.value;
         $('.list-div').empty();
         pageNum = 1;
         addItems(pageSize, pageNum);
     });
     // 点击后打开右侧栏
-    $('#me').click(function() {
+    $('#me').click(function () {
         $.openPanel('#panel-right-demo');
     });
     $.init();
