@@ -4,6 +4,7 @@ import com.yequan.o2o.entity.HeadLine;
 import com.yequan.o2o.entity.ShopCategory;
 import com.yequan.o2o.service.HeadLineService;
 import com.yequan.o2o.service.ShopCategoryService;
+import com.yequan.o2o.util.ConfigFileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

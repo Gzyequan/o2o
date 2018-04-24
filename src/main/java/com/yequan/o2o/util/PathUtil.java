@@ -10,17 +10,18 @@ public class PathUtil {
         String basePath = "";
         if (os.toLowerCase().startsWith("win")) {
 //            basePath = ConfigFileUtil.getProperty("win_path");
-            basePath = "F:/o2o/image/";
+            basePath = "F:/o2o/image";
         } else {
 //            basePath = ConfigFileUtil.getProperty("linux_path");
-            basePath = "/home/image/";
+            basePath = "/home/image";
         }
-        basePath.replace("/", separator);
+//        basePath.replace("/", separator);
         return basePath;
     }
 
     public static String getShopImagePath(Long shopId) {
-        String imagePath = "upload/images/item/shop/" + shopId + "/";
-        return imagePath.replace("/", separator);
+        String imagePath = "/upload/images/item/shop/" + shopId + "/";
+//        return imagePath.replace("/", separator);
+        return imagePath;
     }
 }

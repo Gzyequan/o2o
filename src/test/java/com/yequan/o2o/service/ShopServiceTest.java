@@ -71,25 +71,26 @@ public class ShopServiceTest extends BaseTest {
     }
 
     @Test
-    @Ignore
+//    @Ignore
     public void testQueryShopList() {
-        Shop shop = new Shop();
-        PersonInfo owner = new PersonInfo();
-        owner.setUserId(1L);
-        ShopCategory shopCategory = new ShopCategory();
-        shopCategory.setShopCategoryId(20L);
-        Area area = new Area();
-        area.setAreaId(2);
+        Shop shopCondition = new Shop();
+        ShopCategory parentShopCategory = new ShopCategory();
+        parentShopCategory.setShopCategoryId(12L);
+        ShopCategory childShopCategory = new ShopCategory();
+        childShopCategory.setParent(parentShopCategory);
+        shopCondition.setShopCategory(childShopCategory);
 
 //        shop.setShopCategory(shopCategory);
 //        shop.setArea(area);
 //        shop.setOwner(owner);
-        shop.setEnableStatus(1);
+        shopCondition.setEnableStatus(1);
 //        shop.setShopName("奶茶");
 
-        ShopExecution shopExecution = shopService.queryShopList(shop, 1, 10);
+        ShopExecution shopExecution = shopService.queryShopList(shopCondition, 1, 15);
         System.out.println(shopExecution.getShopList().size());
-        System.out.println(shopExecution.getShopList().get(0).getShopName());
+        for (Shop shop : shopExecution.getShopList()) {
+            System.out.println(shop.getShopName());
+        }
     }
 
 }
