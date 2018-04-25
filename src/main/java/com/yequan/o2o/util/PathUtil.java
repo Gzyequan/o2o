@@ -13,7 +13,7 @@ public class PathUtil {
             basePath = "F:/o2o/image";
         } else {
 //            basePath = ConfigFileUtil.getProperty("linux_path");
-            basePath = "/home/image";
+            basePath = "/usr/resource/image/upload";
         }
 //        basePath.replace("/", separator);
         return basePath;

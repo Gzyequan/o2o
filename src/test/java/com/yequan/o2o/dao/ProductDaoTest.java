@@ -3,6 +3,7 @@ package com.yequan.o2o.dao;
 import com.yequan.o2o.BaseTest;
 import com.yequan.o2o.entity.Product;
 import com.yequan.o2o.entity.ProductCategory;
+import com.yequan.o2o.entity.ProductImg;
 import com.yequan.o2o.entity.Shop;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -76,11 +77,14 @@ public class ProductDaoTest extends BaseTest {
     @Test
     @Ignore
     public void testQueryByProductId() {
-        Product product = productDao.queryByProductId(1L);
-        System.out.println(product.getProductImgList().size());
+        Product product = productDao.queryByProductId(63L);
+        for (ProductImg productImg : product.getProductImgList()) {
+            System.out.println(productImg.getImgAddr());
+        }
     }
 
     @Test
+    @Ignore
     public void testUpdateProduct() {
         Product product = new Product();
         product.setProductId(15L);

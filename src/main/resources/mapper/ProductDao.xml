@@ -21,11 +21,12 @@
         </association>
         <association column="shop_id" property="shop" javaType="com.yequan.o2o.entity.Shop">
             <id column="shop_id" property="shopId"/>
+
             <result column="shop_name" property="shopName"/>
         </association>
         <collection column="product_id" property="productImgList" ofType="com.yequan.o2o.entity.ProductImg">
             <id column="product_img_id" property="productImgId"/>
-            <result column="img_addr" property="imgAddr"/>
+            <result column="detail_img" property="imgAddr"/>
             <result column="img_desc" property="imgDesc"/>
             <result column="priority" property="priority"/>
             <result column="create_time" property="createTime"/>
