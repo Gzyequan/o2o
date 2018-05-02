@@ -1,4 +1,4 @@
-package com.yequan.o2o.util;
+package com.yequan.o2o.util.wechat;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
