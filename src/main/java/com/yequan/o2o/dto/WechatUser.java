@@ -10,16 +10,16 @@ public class WechatUser {
     private String nickName;
     @JsonProperty("sex")
     private int sex;
-    @JsonProperty("province")
-    private String province;
+    @JsonProperty("language")
+    private String language;
     @JsonProperty("city")
     private String city;
+    @JsonProperty("province")
+    private String province;
     @JsonProperty("country")
     private String country;
     @JsonProperty("headimgurl")
     private String headImgUrl;
-    @JsonProperty("language+")
-    private String language;
     @JsonProperty("privilege")
     private String[] privilege;
 
@@ -47,12 +47,12 @@ public class WechatUser {
         this.sex = sex;
     }
 
-    public String getProvince() {
-        return province;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public String getCity() {
@@ -61,6 +61,14 @@ public class WechatUser {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     public String getCountry() {
@@ -77,14 +85,6 @@ public class WechatUser {
 
     public void setHeadImgUrl(String headImgUrl) {
         this.headImgUrl = headImgUrl;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
     }
 
     public String[] getPrivilege() {
